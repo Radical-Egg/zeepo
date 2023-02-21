@@ -1,9 +1,11 @@
 TARGET:=target/zeepo
 
-all: $(TARGET)
+all: build
 
-bookworm:
-	go build -o $(TARGET) cmd/zeepo/zeepo.go
+build:
+	GOARCH=arm64 GOOS=darwin go build -o $(TARGET) cmd/zeepo/zeepo.go
+
+.PHONY: build
 
 clean:
 	rm -rf target/
