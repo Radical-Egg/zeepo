@@ -4,10 +4,19 @@ import (
 	"bytes"
 	"encoding/json"
 	"net/http"
+	"strconv"
 )
 type ColorScheme struct {
 	// Return type is a nested array
 	Result [][]int `json:"result"`
+}
+
+func ConvRGBToHex(colors ...int) string {
+	result := ""
+	for _, color := range colors {
+		result += strconv.FormatInt(int64(color), 16)
+	}
+	return result
 }
 
 func GetColorPallete() ColorScheme{

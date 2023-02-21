@@ -7,12 +7,12 @@ import (
 
 func GenerateColorGrid() *tview.Grid {
 	colors := services.GetColorPallete()
-	//var prims map[string]tview.Primitive
 
 	prims := make(map[string]tview.Primitive, len(colors.Result))
 
 	for count, color := range colors.Result {
-		prims["prim" + string(count)] = newPrimitive(string(""), color...)
+		hex := services.ConvRGBToHex(color...)
+		prims["prim" + string(count)] = newPrimitive(hex, color...)
 	}
 
 	grid := tview.NewGrid().
