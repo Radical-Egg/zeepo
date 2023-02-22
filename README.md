@@ -2,6 +2,8 @@
 
 This program will generate color palette's from [colormind.io](http://colormind.io/) using the [tview](https://github.com/rivo/tview/tree/master) library.
 
+![](./docs/zeepo_demo.gif)
+
 # Installing
 
 ## macOS
