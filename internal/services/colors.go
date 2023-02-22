@@ -3,6 +3,7 @@ package services
 import (
 	"bytes"
 	"encoding/json"
+	"log"
 	"net/http"
 	"strconv"
 )
@@ -19,14 +20,14 @@ func ConvRGBToHex(colors ...int) string {
 	return result
 }
 
-func GetColorPallete() ColorScheme{
+func GetColorPallete() ColorScheme {
 	url := "http://colormind.io/api/"
 
 	var jsonStr = []byte(`{"model":"default"}`)
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
 
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 
 	req.Header.Set("Content-Type", "application/json")
@@ -34,7 +35,10 @@ func GetColorPallete() ColorScheme{
 	client := &http.Client{}
 	res, err := client.Do(req)
 	if err != nil {
-		panic(err)
+		log.Println(
+			`Unable to pull from the colormind API. 
+		You probably aren't connected to the internet, or the API is down :c`)
+		log.Fatalln(err)
 	}
 	defer res.Body.Close()
 
@@ -42,11 +46,11 @@ func GetColorPallete() ColorScheme{
 	derr := json.NewDecoder(res.Body).Decode(&colors)
 
 	if derr != nil {
-		panic(derr)
+		log.Fatalln(derr)
 	}
 
 	if res.StatusCode != http.StatusOK {
-		panic(res.Status)
+		log.Fatalln(res.Status)
 	}
 
 

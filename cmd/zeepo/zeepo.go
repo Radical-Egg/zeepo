@@ -9,9 +9,12 @@ import (
 func main() {
 	pages := tview.NewPages()
 	grid := tui.GenerateColorGrid()
+	help_menu := tui.HelpMenu()
 	app := tview.NewApplication()
 
+	pages.AddPage("Help Menu", help_menu, true, true)
 	pages.AddPage("Color Grid", grid, true, true)
+	
 
 	app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		switch event.Key() {
@@ -20,6 +23,14 @@ func main() {
 				pages.RemovePage("Color Grid")
 				pages.AddPage("Color Grid", grid, true, true)
 				pages.SwitchToPage("Color Grid")
+			case tcell.KeyTAB:
+				current_page, _ := pages.GetFrontPage()
+				switch current_page {
+					case "Color Grid":
+						pages.SwitchToPage("Help Menu")
+					case "Help Menu":
+						pages.SwitchToPage("Color Grid")
+				}
 			case tcell.KeyCtrlC, tcell.KeyEsc:
 				app.Stop()
 			}
