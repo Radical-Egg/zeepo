@@ -23,3 +23,8 @@ go build cmd/zeepo/zeepo.go
 
 ./zeepo
 ```
+
+# Usage
+
+- Press the enter key to generate a new color palette.
+- Press Tab to display help menu
